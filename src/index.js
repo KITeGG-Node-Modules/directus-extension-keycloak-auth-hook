@@ -3,7 +3,6 @@ export default ({filter, action}, {logger, services}) => {
     const {provider, providerPayload} = meta
     const {ItemsService} = services
     if (provider === 'keycloak' && providerPayload) {
-      logger.info('PAYLOAD: ' + JSON.stringify(payload))
       const {userInfo} = providerPayload
       const keys = Object.keys(userInfo || {})
       const groups = keys.filter(key => key.startsWith('groups.')).map(key => userInfo[key])
