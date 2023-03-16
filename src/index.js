@@ -19,10 +19,10 @@ export default ({filter, action}, {logger, services}) => {
               groupId
             }
           })
-          const role = results.map(mapping => mapping.roleId).shift()
-          if (role) {
-            logger.info(`ROLE ID: ${role}`)
-            payload.role = role
+          const roleId = results.map(mapping => mapping.roleId).shift()
+          if (roleId) {
+            logger.info(`ROLE ID: ${roleId}`)
+            payload.role = roleId
           }
         } catch (e) {
           logger.error(e.message)
