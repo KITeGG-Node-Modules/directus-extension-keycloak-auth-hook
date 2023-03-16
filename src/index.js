@@ -6,7 +6,7 @@ export default ({filter, action}, {logger, services}) => {
       const {userInfo} = providerPayload
       const keys = Object.keys(userInfo || {})
       const groups = keys.filter(key => key.startsWith('groups.')).map(key => userInfo[key])
-      const mappingService = new ItemsService('RoleGroupMapping', context)
+      const mappingService = new ItemsService('role_group_mapping', context)
       const institution = groups.find(group => ['hsm', 'hfgo', 'hfgg', 'hst', 'kisd'].includes(group))
       const status = groups.find(group => ['staff', 'student'].includes(group))
       logger.info(`GROUPS: ${groups.join(', ')}`)
