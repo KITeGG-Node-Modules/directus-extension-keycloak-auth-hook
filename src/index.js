@@ -5,15 +5,15 @@ export default ({filter, action}, {logger, services}) => {
     if (provider === 'keycloak' && providerPayload) {
       const {userInfo} = providerPayload
       const keys = Object.keys(userInfo || {})
-      const groups = keys.filter(key => key.startsWith('groups.')).map(key => userInfo[key])
+      const keycloakGroups = keys.filter(key => key.startsWith('groups.')).map(key => userInfo[key])
       const mappingService = new ItemsService('role_group_mapping', context)
-      const institution = groups.find(group => ['hsm', 'hfgo', 'hfgg', 'hst', 'kisd'].includes(group))
-      const status = groups.find(group => ['staff', 'student'].includes(group))
-      logger.info(`GROUPS: ${groups.join(', ')}`)
+      const institution = keycloakGroups.find(group => ['hsm', 'hfgo', 'hfgg', 'hst', 'kisd'].includes(group))
+      const status = keycloakGroups.find(group => ['staff', 'student'].includes(group))
+      logger.info(`keycloakGroups: ${keycloakGroups.join(', ')}`)
       if (institution && status) {
         try {
           const groupId = `${institution}-${status}`
-          logger.info(`GROUP ID: ${groupId}`)
+          logger.info(`groupId: ${groupId}`)
           const results = await mappingService.readByQuery({
             filter: {
               groupId
@@ -21,7 +21,7 @@ export default ({filter, action}, {logger, services}) => {
           })
           const roleId = results.map(mapping => mapping.roleId).shift()
           if (roleId) {
-            logger.info(`ROLE ID: ${roleId}`)
+            logger.info(`roleId: ${roleId}`)
             payload.role = roleId
           }
         } catch (e) {
