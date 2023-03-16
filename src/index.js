@@ -1,5 +1,5 @@
 export default ({filter, action}, {logger, services}) => {
-  async function updateGroups (payload, meta, context) {
+  async function setRoleFromKeycloakGroups (payload, meta, context) {
     const {provider, providerPayload} = meta
     const {ItemsService} = services
     if (provider === 'keycloak' && providerPayload) {
@@ -35,11 +35,11 @@ export default ({filter, action}, {logger, services}) => {
 
   filter('auth.create', (payload, meta, context) => {
     logger.info('auth.create')
-    return updateGroups(payload, meta, context)
+    return setRoleFromKeycloakGroups(payload, meta, context)
   })
 
   filter('auth.update', (payload, meta, context) => {
     logger.info('auth.update')
-    return updateGroups(payload, meta, context)
+    return setRoleFromKeycloakGroups(payload, meta, context)
   })
 };
