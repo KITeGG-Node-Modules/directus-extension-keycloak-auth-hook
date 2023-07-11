@@ -12,7 +12,7 @@ export default ({filter, action}, {logger, services}) => {
       logger.info(`keycloakGroups: ${keycloakGroups.join(', ')}`)
       if (institution && status) {
         try {
-          const groupId = `${institution}-${status === 'management' ? 'staff' : status}`
+          const groupId = `${institution}-${status}`
           logger.info(`groupId: ${groupId}`)
           const results = await mappingService.readByQuery({
             filter: {
