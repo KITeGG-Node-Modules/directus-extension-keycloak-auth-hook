@@ -8,11 +8,11 @@ export default ({filter, action}, {logger, services}) => {
       const keycloakGroups = keys.filter(key => key.startsWith('groups.')).map(key => userInfo[key])
       const mappingService = new ItemsService('role_group_mapping', context)
       const institution = keycloakGroups.find(group => ['hsm', 'hfgo', 'hfgg', 'hst', 'kisd'].includes(group))
-      const status = keycloakGroups.find(group => ['staff', 'student'].includes(group))
+      const status = keycloakGroups.find(group => ['staff', 'student', 'management'].includes(group))
       logger.info(`keycloakGroups: ${keycloakGroups.join(', ')}`)
       if (institution && status) {
         try {
-          const groupId = `${institution}-${status}`
+          const groupId = `${institution}-${status === 'management' ? 'staff' : status}`
           logger.info(`groupId: ${groupId}`)
           const results = await mappingService.readByQuery({
             filter: {
