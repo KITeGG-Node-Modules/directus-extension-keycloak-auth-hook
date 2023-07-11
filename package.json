@@ -1,6 +1,6 @@
 {
-	"name": "kitegg-directus-auth-hook",
-	"description": "Auth hooks for the KITeGG LLP",
+	"name": "directus-extension-keycloak-auth-hook",
+	"description": "Keycloak auth hooks for the KITeGG LLP",
 	"icon": "extension",
 	"version": "1.0.0",
 	"keywords": [
